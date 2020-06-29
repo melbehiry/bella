@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply from: '../dependencies.gradle'
+apply plugin: 'org.jetbrains.dokka'
+
+android {
+    compileSdkVersion versions.compileSdk
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
+    }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    implementation "androidx.appcompat:appcompat:${versions.androidxAppcompat}"
+    implementation "androidx.cardview:cardview:$versions.cardView"
+    annotationProcessor "android.arch.lifecycle:compiler:$versions.lifecycle"
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+    configuration {
+        moduleName = 'balloon'
+    }
+}
+
+tasks.withType(Javadoc) {
+    excludes = ['**/*.kt']
+    options.addBooleanOption('Xdoclint:none', true)
+}
+
+apply from: '../spotless.gradle'
