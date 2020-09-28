@@ -1,0 +1,13 @@
+apply plugin: 'com.novoda.bintray-release'
+apply from: '../dependencies.gradle'
+
+publish {
+    userOrg = 'elbehiry'
+    groupId = 'com.github.elbehiry'
+    artifactId = 'bella'
+    publishVersion = versions.versionName
+    desc = 'A lightweight top alert, fully customizable with action and auto dismiss.'
+    website = 'https://github.com/elbehiry/bella'
+    issueTracker = "${website}/issues"
+    repository = "${website}.git"
+}
