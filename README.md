@@ -10,7 +10,7 @@
 </p> <br>
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/8813304/94427448-60263580-018f-11eb-990f-10bbadd6f7cc.gif"/>
+<img src="https://user-images.githubusercontent.com/8813304/94427448-60263580-018f-11eb-990f-10bbadd6f7cc.gif" width="35%"/>
 </p>
 
 ## Including in your project
