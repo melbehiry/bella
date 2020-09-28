@@ -3,4 +3,6 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="error_red">#C51414</color>
+    <color name="action_button_color">#FFFFFF</color>
 </resources>

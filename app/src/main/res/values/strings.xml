@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">bella</string>
+    <string name="something_error">something went worng</string>
+    <string name="retry_text">retry</string>
+    <string name="retry">Retry</string>
+    <string name="alert_content" >something went wrong</string>
+    <string name="show_alert">show alert</string>
 </resources>

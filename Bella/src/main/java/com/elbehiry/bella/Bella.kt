@@ -338,5 +338,348 @@ class Bella(
     @BellaDsl
     class Builder(private val context: Context) {
 
+        @JvmField
+        @Dp
+        var height: Int = NO_INT_VALUE
+
+        @JvmField
+        @Dp
+        var padding: Int = NO_INT_VALUE
+
+        @JvmField
+        var buttonVisible: Boolean = false
+
+        @JvmField
+        var buttonText: CharSequence = ""
+
+        @JvmField
+        @ColorInt
+        var buttonBackgroundColor: Int = NO_INT_VALUE
+
+        @JvmField
+        @ColorInt
+        var buttonTextColor: Int = NO_INT_VALUE
+
+        @JvmField
+        @Sp
+        var buttonTextSize: Float = 16f
+
+        @JvmField
+        var buttonPadding: Int = 0
+
+        @JvmField
+        @ColorInt
+        var backgroundColor: Int = Color.BLACK
+
+        @JvmField
+        var backgroundDrawable: Drawable? = null
+
+        @JvmField
+        @Dp
+        var space: Int = 0
+
+        @JvmField
+        @Dp
+        var cornerRadius: Float = context.dp2Px(5).toFloat()
+
+        @JvmField
+        var text: CharSequence = ""
+
+        @JvmField
+        @ColorInt
+        var textColor: Int = Color.WHITE
+
+        @JvmField
+        var textIsHtml: Boolean = false
+
+        @JvmField
+        @Sp
+        var textSize: Float = 12f
+
+        @JvmField
+        var textTypeface: Int = Typeface.NORMAL
+
+        @JvmField
+        var textMaxLines: Int = 2
+
+        @JvmField
+        var textTypefaceObject: Typeface? = null
+
+        @JvmField
+        var textGravity: Int = Gravity.START
+
+        @JvmField
+        var textForm: TextForm? = null
+
+        @JvmField
+        @FloatRange(from = 0.0, to = 1.0)
+        var alpha: Float = 1f
+
+        @JvmField
+        var elevation: Float = context.dp2Px(2f)
+
+        @JvmField
+        var onBellaClickListener: OnBellaClickListener? = null
+
+        @JvmField
+        var onBellaShownListener: OnBellaShownListener? = null
+
+        @JvmField
+        var onBellaButtonClickListener: OnBellaButtonClickListener? = null
+
+        @JvmField
+        var onBellaDismissListener: OnBellaDismissListener? = null
+
+        @JvmField
+        var autoDismissDuration: Long = NO_LONG_VALUE
+
+        @JvmField
+        var lifecycleOwner: LifecycleOwner? = null
+
+        /** sets the height size. */
+        fun setHeight(@Dp value: Int): Builder = apply { this.height = context.dp2Px(value) }
+
+        /** sets the height size using dimension resources. */
+        fun setHeightResource(@DimenRes value: Int): Builder = apply {
+            this.height = context.dimen(value)
+        }
+
+        /** sets the padding on all directions. */
+        fun setPadding(@Dp value: Int): Builder = apply { this.padding = context.dp2Px(value) }
+
+        /** sets the padding on all directions using dimension resource. */
+        fun setPaddingResource(@DimenRes value: Int): Builder = apply {
+            this.padding = context.dimen(value)
+        }
+
+        /** sets the visibility of the button. */
+        fun setButtonVisible(value: Boolean): Builder = apply { this.buttonVisible = value }
+
+        /** sets a color of the button background. */
+        fun setButtonBackgroundColor(@ColorInt value: Int): Builder =
+            apply { this.buttonBackgroundColor = value }
+
+        /** sets a color of the button background using a resource. */
+        fun setButtonBackgroundColorResource(@ColorRes value: Int): Builder = apply {
+            this.buttonBackgroundColor = context.contextColor(value)
+        }
+
+        /** sets a color of the button text color. */
+        fun setButtonTextColor(@ColorInt value: Int): Builder =
+            apply { this.buttonTextColor = value }
+
+        /** sets a color of the button text color using a resource. */
+        fun setButtonTextColorResource(@ColorRes value: Int): Builder = apply {
+            this.buttonTextColor = context.contextColor(value)
+        }
+
+        /** sets a button text size. */
+        fun setButtonTextSize(@Dp value: Float): Builder =
+            apply { this.buttonTextSize = value }
+
+        /** sets a button text size from resource. */
+        fun setButtonTextSizeResource(@DimenRes value: Int): Builder = apply {
+            this.buttonTextSize = context.dimen(value).toFloat()
+        }
+
+        /** sets a space between text and button. */
+        fun setSpace(@Dp value: Int): Builder = apply { this.space = context.dp2Px(value) }
+
+        /** sets a space between text and button from resource. */
+        fun setSpaceResource(@DimenRes value: Int): Builder = apply {
+            this.space = context.dimen(value)
+        }
+
+        /** sets the button padding on all directions. */
+        fun setButtonPadding(@Dp value: Int): Builder = apply {
+            this.buttonPadding = context.dp2Px(value)
+        }
+
+        /** sets the content background color. */
+        fun setBackgroundColor(@ColorInt value: Int): Builder =
+            apply { this.backgroundColor = value }
+
+        /** sets the content background color from resource. */
+        fun setBackgroundColorResource(@ColorRes value: Int): Builder = apply {
+            this.backgroundColor = context.contextColor(value)
+        }
+
+        /** sets the content background drawable. */
+        fun setBackgroundDrawable(value: Drawable?): Builder = apply {
+            this.backgroundDrawable = value?.mutate()
+        }
+
+        /** sets the content background drawable from resource. */
+        fun setBackgroundDrawableResource(@DrawableRes value: Int): Builder = apply {
+            this.backgroundDrawable = context.contextDrawable(value)?.mutate()
+        }
+
+        /** sets the content corner radius. */
+        fun setCornerRadius(@Dp value: Float): Builder = apply {
+            this.cornerRadius = context.dp2Px(value)
+        }
+
+        /** sets the content corner radius from resource. */
+        fun setCornerRadiusResource(@DimenRes value: Int): Builder = apply {
+            this.cornerRadius = context.dimen(value).toFloat()
+        }
+
+        /** sets the button text. */
+        fun setButtonText(value: CharSequence): Builder = apply { this.buttonText = value }
+
+        /** sets a text max lines. */
+        fun setMaxLines(value: Int): Builder = apply {
+            this.textMaxLines = value
+        }
+
+        /** sets the main text content of the bella view. */
+        fun setText(value: CharSequence): Builder = apply { this.text = value }
+
+        /** sets the main text content of the bella view from resource. */
+        fun setTextResource(@StringRes value: Int): Builder = apply {
+            this.text = context.getString(value)
+        }
+
+        /** sets the main text color. */
+        fun setTextColor(@ColorInt value: Int): Builder = apply { this.textColor = value }
+
+        /** sets the main text color from resource. */
+        fun setTextColorResource(@ColorRes value: Int): Builder = apply {
+            this.textColor = context.contextColor(value)
+        }
+
+        /** sets whether the text will be parsed as HTML (using Html.fromHtml(..)) */
+        fun setTextIsHtml(value: Boolean): Builder = apply { this.textIsHtml = value }
+
+        /** sets the size of the main text content. */
+        fun setTextSize(@Sp value: Float): Builder = apply { this.textSize = value }
+
+        /** sets the typeface of the main text content. */
+        fun setTextTypeface(value: Int): Builder = apply { this.textTypeface = value }
+
+        /** sets the typeface of the main text content. */
+        fun setTextTypeface(value: Typeface): Builder = apply { this.textTypefaceObject = value }
+
+        /** sets gravity of the text. */
+        fun setTextGravity(value: Int): Builder = apply {
+            this.textGravity = value
+        }
+
+        /** applies [TextForm] attributes to the main text content. */
+        fun setTextForm(value: TextForm): Builder = apply { this.textForm = value }
+
+        /** sets the alpha value to the container. */
+        fun setAlpha(@FloatRange(from = 0.0, to = 1.0) value: Float): Builder = apply {
+            this.alpha = value
+        }
+
+        /** sets the elevation to the popup. */
+        fun setElevation(@Dp value: Int): Builder = apply {
+            this.elevation = context.dp2Px(value).toFloat()
+        }
+
+        /** sets the elevation to the popup using dimension resource. */
+        fun setElevationResource(@DimenRes value: Int): Builder = apply {
+            this.elevation = context.dimen(value).toFloat()
+        }
+
+        /**
+         * sets the [LifecycleOwner] for dismissing automatically when the [LifecycleOwner] is destroyed.
+         * It will prevents memory leak
+         */
+        fun setLifecycleOwner(value: LifecycleOwner?): Builder =
+            apply { this.lifecycleOwner = value }
+
+        /** sets duration value to dismiss the bella view. */
+        fun setAutoDismissDuration(value: Long): Builder = apply {
+            this.autoDismissDuration = value
+        }
+
+        /** sets a [OnBellaClickListener] to the bella view. */
+        fun setOnBellaClickListener(value: OnBellaClickListener): Builder = apply {
+            this.onBellaClickListener = value
+        }
+
+        /** sets a [OnBellaClickListener] to the bella view. */
+        fun setOnBellaClickListener(unit: (View) -> Unit): Builder = apply {
+            this.onBellaClickListener = object : OnBellaClickListener {
+                override fun onBellaClick(view: View) {
+                    unit(view)
+                }
+            }
+        }
+
+        /**
+         * sets a [OnBellaShownListener] to the bella view.
+         * called when the view is appear.
+         */
+        fun setOnBellaShownListener(value: OnBellaShownListener): Builder = apply {
+            this.onBellaShownListener = value
+        }
+
+        /**
+         * sets a [OnBellaShownListener] to the bella view.
+         * called when the view is appear.
+         */
+        fun setOnBellaShownListener(unit: () -> Unit): Builder = apply {
+            this.onBellaShownListener = object : OnBellaShownListener {
+                override fun onBellaShown() {
+                    unit()
+                }
+            }
+        }
+
+        /**
+         * sets a [OnBellaButtonClickListener] to the bella view.
+         * called if the button clicked.
+         */
+        fun setOnBellaButtonClickListener(value: OnBellaButtonClickListener): Builder = apply {
+            this.onBellaButtonClickListener = value
+        }
+
+        /**
+         * sets a [OnBellaButtonClickListener] to the bella view.
+         * called if the button clicked.
+         */
+        fun setOnBellaButtonClickListener(unit: (View) -> Unit): Builder = apply {
+            this.onBellaButtonClickListener = object : OnBellaButtonClickListener {
+                override fun onBellaButtonClicked(view: View) {
+                    unit(view)
+                }
+            }
+        }
+
+        /**
+         * sets a [OnBellaDismissListener] to the bella view.
+         * called when the view is dismissed.
+         */
+        fun setOnBellaDismissListener(value: OnBellaDismissListener): Builder = apply {
+            this.onBellaDismissListener = value
+        }
+
+        /**
+         * sets a [OnBellaDismissListener] to the bella view.
+         * called when the view is dismissed.
+         */
+        fun setOnBellaDismissListener(unit: () -> Unit): Builder = apply {
+            this.onBellaDismissListener = object : OnBellaDismissListener {
+                override fun onBellaDismiss() {
+                    unit()
+                }
+            }
+        }
+
+        fun build(): Bella = Bella(context, this@Builder)
+    }
+
+    /**
+     * An abstract factory class for creating [Bella] instance.
+     *
+     * A factory implementation class must have a non-argument constructor.
+     */
+    abstract class Factory {
+
+        /** returns an instance of [Bella]. */
+        abstract fun create(context: Context, lifecycleOwner: LifecycleOwner): Bella
     }
 }
