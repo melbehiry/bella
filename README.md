@@ -27,7 +27,7 @@ allprojects {
 And add a dependency code to your **module**'s `build.gradle` file.
 ```gradle
 dependencies {
-    implementation "com.github.elbehiry:bella:0.1.0"
+    implementation "com.github.elbehiry:bella:0.2.0"
 }
 ```
 
