@@ -24,15 +24,18 @@ import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Interpolator
 import android.widget.FrameLayout
-import android.widget.Toast
 import android.widget.Toolbar
-import androidx.annotation.*
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.FloatRange
+import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
@@ -54,7 +57,6 @@ import com.elbehiry.bella.listeners.OnBellaButtonClickListener
 import com.elbehiry.bella.listeners.OnBellaClickListener
 import com.elbehiry.bella.listeners.OnBellaDismissListener
 import com.elbehiry.bella.listeners.OnBellaShownListener
-import com.google.android.material.snackbar.BaseTransientBottomBar
 
 @DslMarker
 annotation class BellaDsl
@@ -67,8 +69,8 @@ inline fun createBella(context: Context, block: Bella.Builder.() -> Unit): Bella
 /** Bella implements showing and dismissing notification top alert with text, action button and animations. */
 @Suppress("@MemberVisibilityCanBePrivate")
 class Bella(
-    private val context: Context,
-    private val builder: Builder
+  private val context: Context,
+  private val builder: Builder
 ) : LifecycleObserver {
 
     private var view: View? = null
