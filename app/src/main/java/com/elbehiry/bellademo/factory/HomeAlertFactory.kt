@@ -27,14 +27,12 @@ class HomeAlertFactory : Bella.Factory() {
     override fun create(context: Context, lifecycleOwner: LifecycleOwner): Bella {
         return Bella.Builder(context)
             .setButtonVisible(true)
-            .setButtonTextColorResource(R.color.action_button_color)
             .setButtonTextSize(12f)
             .setButtonText(context.getString(R.string.retry))
             .setTextResource(R.string.alert_content)
             .setTextSize(12f)
             .setLifecycleOwner(lifecycleOwner)
             .setAutoDismissDuration(BellaViewDuration)
-            .setBackgroundColorResource(R.color.error_red)
             .build()
     }
 }

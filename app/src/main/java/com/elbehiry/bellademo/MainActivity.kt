@@ -18,6 +18,8 @@ package com.elbehiry.bellademo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.elbehiry.bella.Bella
+import com.elbehiry.bella.Duration
 import com.elbehiry.bella.ext.bella
 import com.elbehiry.bellademo.factory.HomeAlertFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,11 +32,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
+        showAlertView.setOnClickListener {
+            Bella.make(showAlert, "something went wrong", Duration.LENGTH_LONG).show()
+        }
         showAlert.setOnClickListener {
-            bellaView.show(bellaAlertContent)
-
+            bellaView.showAlignedWithParent(bellaAlertContent)
         }
     }
 }
