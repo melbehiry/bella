@@ -24,18 +24,17 @@ import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Interpolator
 import android.widget.FrameLayout
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
-import androidx.annotation.DimenRes
-import androidx.annotation.DrawableRes
-import androidx.annotation.FloatRange
-import androidx.annotation.StringRes
+import android.widget.Toast
+import android.widget.Toolbar
+import androidx.annotation.*
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.ViewPropertyAnimatorListenerAdapter
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
@@ -55,6 +54,7 @@ import com.elbehiry.bella.listeners.OnBellaButtonClickListener
 import com.elbehiry.bella.listeners.OnBellaClickListener
 import com.elbehiry.bella.listeners.OnBellaDismissListener
 import com.elbehiry.bella.listeners.OnBellaShownListener
+import com.google.android.material.snackbar.BaseTransientBottomBar
 
 @DslMarker
 annotation class BellaDsl
@@ -67,10 +67,11 @@ inline fun createBella(context: Context, block: Bella.Builder.() -> Unit): Bella
 /** Bella implements showing and dismissing notification top alert with text, action button and animations. */
 @Suppress("@MemberVisibilityCanBePrivate")
 class Bella(
-  private val context: Context,
-  private val builder: Builder
+    private val context: Context,
+    private val builder: Builder
 ) : LifecycleObserver {
 
+    private var view: View? = null
     var isShowing = false
         private set
     private var destroyed: Boolean = false
@@ -99,12 +100,33 @@ class Bella(
         }
     })
 
+    companion object {
+        fun make(view: View, text: String, @Duration duration: Int): Bella {
+            val builder = Builder(view.context)
+                .setText(text)
+                .setAutoDismissDuration(duration.toLong())
+                .setPadding(16)
+
+            val bella = Bella(view.context, builder)
+            bella.view = view
+            return bella
+        }
+    }
+
     /**
-     * show bella view with frameLayout as parent viewGroup.
-     *
-     * @param parent container layout.
+     * show bella view.
      */
-    fun show(parent: FrameLayout) {
+    fun show() {
+        val parent: ViewGroup = findSuitableParent(this.view)!!
+        showAlignedWithParent(parent)
+    }
+
+    /**
+     * this used to show bella view inside [ViewGroup] container.
+     *
+     * @param parent
+     */
+    fun showAlignedWithParent(parent: ViewGroup) {
         if (!isShowing && !destroyed) {
             this.isShowing = true
             bellaItemView = BellaItemView(parent, context)
@@ -117,6 +139,52 @@ class Bella(
                 }
             }
         }
+    }
+
+    private fun findSuitableParent(view: View?): ViewGroup? {
+        var view = view
+        var fallback: ViewGroup? = null
+        do {
+            if (view is CoordinatorLayout) {
+                return view
+            } else if (view is FrameLayout) {
+                if (view.id == android.R.id.content) {
+                    return view
+                } else {
+                    fallback = view
+                }
+            } else if (view is androidx.appcompat.widget.Toolbar || view is Toolbar) {
+                if (view.parent is ViewGroup) {
+                    val parent = view.parent as ViewGroup
+                    if (parent.childCount > 1) {
+                        val childrenCnt = parent.childCount
+                        var toolbarIdx: Int
+                        var i = 0
+                        while (i < childrenCnt) {
+                            if (parent.getChildAt(i) === view) {
+                                toolbarIdx = i
+                                if (toolbarIdx < childrenCnt - 1) {
+                                    while (i < childrenCnt) {
+                                        i++
+                                        val v = parent.getChildAt(i)
+                                        if (v is ViewGroup) return v
+                                    }
+                                }
+                                break
+                            }
+                            i++
+                        }
+                    }
+                }
+            }
+
+            if (view != null) {
+                val parent = view.parent
+                view = if (parent is View) parent else null
+            }
+        } while (view != null)
+
+        return fallback
     }
 
     /** hide the bella view and remove handler call-back. */
@@ -369,7 +437,7 @@ class Bella(
 
         @JvmField
         @ColorInt
-        var backgroundColor: Int = Color.BLACK
+        var backgroundColor: Int = Color.WHITE
 
         @JvmField
         var backgroundDrawable: Drawable? = null
@@ -387,7 +455,7 @@ class Bella(
 
         @JvmField
         @ColorInt
-        var textColor: Int = Color.WHITE
+        var textColor: Int = Color.BLACK
 
         @JvmField
         var textIsHtml: Boolean = false
