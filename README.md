@@ -71,7 +71,7 @@ val bella = createBella(context){
 This is how to show bella alert view and dismiss. <br>
 
 ```kotlin
-bella.show(parent: FrameLayout) // shows the bella using framelayout.
+bella.showAlignedWithParent(parent: ViewGroup) // shows the bella using [ViewGroup].
 ```
 
 We can dismiss popup simply using `bella.dismiss()` method.
@@ -85,6 +85,12 @@ Bella.Builder(context)
    // dismisses automatically 1000 milliseconds later when the popup is shown.
    .setAutoDismissDuration(1000L)
    ...
+```
+### Example Two
+
+easy way to create bella view.
+```kotlin
+Bella.make(showAlert, "something went wrong", Duration.LENGTH_LONG).show()
 ```
 
 ### Text Composition
