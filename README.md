@@ -1,4 +1,4 @@
-<h1 align="center">Bella</h1></br>
+<h1 align="center">Bella (not maintained anymore...)</h1></br>
 
 <p align="center">
 :bella: A lightweight top alert, fully customizable with action and auto dismiss.
@@ -174,9 +174,6 @@ class HomeAlertFactory : Bella.Factory() {
     }
 }
 ```
-
-## Find this library useful? :heart:
-Support it by joining __[stargazers](https://github.com/elbehiry/bella/stargazers)__ for this repository. :star:
 
 # License
 ```xml
